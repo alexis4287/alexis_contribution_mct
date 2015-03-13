@@ -25,6 +25,7 @@ import gov.nasa.arc.mct.components.AbstractComponent;
 import gov.nasa.arc.mct.core.components.BrokenComponent;
 import gov.nasa.arc.mct.core.components.BrokenInfoPanel;
 import gov.nasa.arc.mct.core.components.MineTaxonomyComponent;
+import gov.nasa.arc.mct.core.components.MyFavoritesComponent;
 import gov.nasa.arc.mct.core.components.TelemetryDataTaxonomyComponent;
 import gov.nasa.arc.mct.core.components.TelemetryDisciplineComponent;
 import gov.nasa.arc.mct.core.components.TelemetryUserDropBoxComponent;
@@ -90,7 +91,9 @@ public class CoreComponentProvider extends AbstractComponentProvider implements 
         compInfos.add(typeInfo);
         typeInfo = new ComponentTypeInfo(resource.getString("data_taxonomy_component_type_display_name"), resource.getString("data_taxonomy_component_type_description"), TelemetryDataTaxonomyComponent.class, false);
         compInfos.add(typeInfo);
-
+        typeInfo = new ComponentTypeInfo(resource.getString("user_myfavorites_component_display_name"), resource
+                .getString("user_myfavorites_component_description"), MyFavoritesComponent.class, false);
+        compInfos.add(typeInfo);
         
         return compInfos;
     }
@@ -173,6 +176,12 @@ public class CoreComponentProvider extends AbstractComponentProvider implements 
         mysandboxCapability.setCreator(userId);
         mysandboxCapability.setOwner(userId);
         mySandbox.setDisplayName("My Sandbox");
+        
+        AbstractComponent myFavorites = componentRegistry.newInstance(MyFavoritesComponent.class.getName());
+        ComponentInitializer myFavoritesCapability = myFavorites.getCapability(ComponentInitializer.class);
+        myFavoritesCapability.setCreator(userId);
+        myFavoritesCapability.setOwner(userId);
+        myFavorites.setDisplayName("My Favorites");
         
         return mySandbox;
     }

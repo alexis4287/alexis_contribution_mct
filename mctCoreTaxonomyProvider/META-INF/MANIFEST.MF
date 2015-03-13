@@ -18,3 +18,4 @@ Import-Package: gov.nasa.arc.mct.components;version="1.1.0",
  gov.nasa.arc.mct.util;version="1.1.0",
  org.osgi.framework;version="1.4.0"
 Service-Component: OSGI-INF/service.xml
+Export-Package: gov.nasa.arc.mct.core.components

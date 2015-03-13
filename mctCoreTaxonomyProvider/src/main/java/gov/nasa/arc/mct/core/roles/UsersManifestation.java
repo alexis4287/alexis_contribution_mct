@@ -47,6 +47,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -137,8 +138,8 @@ public final class UsersManifestation extends View {
                         ComponentInitializer mysandboxCapability = mySandbox.getCapability(ComponentInitializer.class);
                         mysandboxCapability.setCreator(userId);
                         mysandboxCapability.setOwner(userId);
-                        mySandbox.setDisplayName("My Sandbox");
-                                                
+                        mySandbox.setDisplayName("My Sandbox"); 
+                        
                         AbstractComponent dropbox = componentRegistry.newInstance(TelemetryUserDropBoxComponent.class.getName());
                         ComponentInitializer dropboxCapability = dropbox.getCapability(ComponentInitializer.class);
                         dropboxCapability.setCreator("admin");

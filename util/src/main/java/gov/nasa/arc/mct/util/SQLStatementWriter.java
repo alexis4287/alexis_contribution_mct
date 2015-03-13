@@ -145,6 +145,18 @@ public class SQLStatementWriter {
             stmt = "insert  into component_relationship  (component_id, associated_component_id, seq_no) values (@userDropBoxesId, 'uuid2', @userDropBoxesMaxSeq + 1);";
             stmt = stmt.replaceAll("uuid2", uuid2);
             System.out.println(stmt);
+            
+            String uuid3 =  nextComponentId(); //My Favorites a child of root
+
+            stmt = "insert into component_spec (component_name,  component_type,  model_info, owner, component_id, creator_user_id, date_created) values ('My Favorites', 'gov.nasa.arc.mct.core.components.MyFavoritesComponent', null, 'xxUSERxx', 'uuid3', 'xxUSERxx', NOW());";
+            stmt = stmt.replaceAll("xxUSERxx", ugEntry.getKey()).replaceAll("uuid3", uuid3);
+            System.out.println(stmt);
+            stmt = "insert into tag_association (component_id, tag_id) select component_id, 'bootstrap:creator' from component_spec where component_id = 'uuid3';";
+            stmt = stmt.replaceAll("uuid3", uuid3);
+            System.out.println(stmt);
+            stmt = "insert  into component_relationship  (component_id, associated_component_id, seq_no) values ('uuid1', 'uuid3', 1);";
+            stmt = stmt.replaceAll("uuid1", uuid1).replaceAll("uuid3", uuid3);
+            System.out.println(stmt);
         }
     }
 

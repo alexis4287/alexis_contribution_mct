@@ -32,6 +32,7 @@ import gov.nasa.arc.mct.components.AbstractComponent;
 import gov.nasa.arc.mct.components.DetectGraphicsDevices;
 import gov.nasa.arc.mct.gui.actions.AboutMCT;
 import gov.nasa.arc.mct.gui.actions.AboutMCTLicenses;
+import gov.nasa.arc.mct.gui.actions.AddObjectsInFavorites;
 import gov.nasa.arc.mct.gui.actions.CenterPaneRevertToCommitted;
 import gov.nasa.arc.mct.gui.actions.ChangeHousingViewAction;
 import gov.nasa.arc.mct.gui.actions.ConveniencesOpenMineGroupAction;
@@ -143,6 +144,7 @@ public class UserEnvironment {
         ActionManager.registerAction(ExportViewAsImageAction.class, actionsBundle.getString("ExportViewAsImageCommandKey"));
         ActionManager.registerAction(ExportThisAsImageAction.class, actionsBundle.getString("ExportThisAsImageCommandKey"));
         ActionManager.registerAction(RefreshAction.class, "VIEW_REFRESH_ACTION");
+        ActionManager.registerAction(AddObjectsInFavorites.class, "ADD_OBJ_IN_FAVORITES_ACTION");
         
         
         // Register formatting actions

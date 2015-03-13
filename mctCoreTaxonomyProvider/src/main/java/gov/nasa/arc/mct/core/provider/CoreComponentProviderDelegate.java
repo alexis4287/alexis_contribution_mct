@@ -23,6 +23,7 @@ package gov.nasa.arc.mct.core.provider;
 
 import gov.nasa.arc.mct.components.AbstractComponent;
 import gov.nasa.arc.mct.core.components.MineTaxonomyComponent;
+import gov.nasa.arc.mct.core.components.MyFavoritesComponent;
 import gov.nasa.arc.mct.core.components.TelemetryUserDropBoxComponent;
 import gov.nasa.arc.mct.platform.core.access.PlatformAccess;
 import gov.nasa.arc.mct.platform.spi.PersistenceProvider;
@@ -56,7 +57,8 @@ public class CoreComponentProviderDelegate extends AbstractProviderDelegate {
         CoreComponentRegistry componentRegistry = PlatformAccess.getPlatform().getComponentRegistry();
                         
         AbstractComponent mySandbox = createMySandbox(persistenceService, componentRegistry, session, userMap, userId, group);
-        createUserDropbox(persistenceService, session, userMap, userId, group, mySandbox);        
+        createUserDropbox(persistenceService, session, userMap, userId, group, mySandbox);
+        createMyFavorites(persistenceService, session, userMap, userId, group, mySandbox);
     }
     
     private AbstractComponent createMySandbox(PersistenceProvider persistenceService, CoreComponentRegistry componentRegistry, 
@@ -70,6 +72,7 @@ public class CoreComponentProviderDelegate extends AbstractProviderDelegate {
         
         userMap.put(mySandbox, Collections.singleton(all));
         return mySandbox;
+        
     }    
         
     private void createUserDropbox(PersistenceProvider persistenceProvider, String session, 
@@ -97,6 +100,21 @@ public class CoreComponentProviderDelegate extends AbstractProviderDelegate {
         dropboxContainer.addDelegateComponents(Collections.singleton(userDropBox));
         
         dropboxParents.add(dropboxContainer);
+    }
+    
+    private void createMyFavorites(PersistenceProvider persistenceProvider, String session, 
+            Map<AbstractComponent, Collection<AbstractComponent>> userMap, 
+            String userId, String group, AbstractComponent mySandbox) {
+        
+        // Create MyFavorites under My Sandbox
+        AbstractComponent myFavorites = createComponent(MyFavoritesComponent.class);
+        myFavorites.setOwner(userId);
+        ComponentInitializer ci = myFavorites.getCapability(ComponentInitializer.class);
+        ci.setCreator(userId);
+        ci.setCreationDate(new Date());
+        
+        myFavorites.setDisplayName("My Favorites");
+        mySandbox.addDelegateComponent(myFavorites);
     }
     
     private AbstractComponent createComponent(Class<? extends AbstractComponent> clazz) {

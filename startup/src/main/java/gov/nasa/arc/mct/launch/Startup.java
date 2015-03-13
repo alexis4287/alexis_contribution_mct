@@ -38,6 +38,9 @@ import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -305,6 +308,7 @@ public class Startup {
      */
     public static void main(String[] args) {
     	// MCT needs certain properties to be specified
+    	
     	if (System.getProperty("rwRoot") == null) {
     		System.setProperty("rwRoot", ".");
     	}
